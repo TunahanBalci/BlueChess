@@ -1,101 +1,144 @@
 import ChessCell from "./ChessCell";
+import Profile from "./Profile";
+import GetTime from "./ClientEngine";
 
 const CELL_COUNT = 64;
 
-function ChessTable() {
+function ChessBoard(props) {
+  const maxSize = props.maxSize;
+  const minSize = props.minSize;
+
   return (
-    <div
-    style={{
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      height: "40vw",
-      width: "40vw",
-    }}>
-    <>
+    <div id="chessboard_total">
       <div
-        id="letters"
         style={{
           display: "flex",
-          flexDirection: "row",
-          letterSpacing: "2.8vw",
-          fontFamily: "Arial",
-          fontSize: "1.2vw",
-          fontWeight: "bolder",
+          flex: 3,
+          gap: "1vmin",
+          flexDirection: "column",
           alignItems: "center",
-          justifyContent: "space-around",
-          writingMode: "vertical-lr",
-          textOrientation: "upright",
-          transform: "translate(1.2vw, 1.5vw)",
+          boxSizing: "border-box",
         }}
       >
-        <h3 style={{color: "#5484b3"}}>A</h3>
-        <h3 style={{color: "#5484b3"}}>B</h3>
-        <h3 style={{color: "#5484b3"}}>C</h3>
-        <h3 style={{color: "#5484b3"}}>D</h3>
-        <h3 style={{color: "#5484b3"}}>E</h3>
-        <h3 style={{color: "#5484b3"}}>F</h3>
-        <h3 style={{color: "#5484b3"}}>G</h3>
-        <h3 style={{color: "#5484b3"}}>H</h3>
-      </div>
-      <div style={{
-        
-        height: "40vw",
-        width: "40vw",
-      }}>
         <div
-          id="numbers"
           style={{
-            flex: 1,
-            display: "flex",
-            flexDirection: "column",
-            fontSize: "1vw",
-            letterSpacing: "0.8vw",
-            fontFamily: "Arial",
-            fontSize: "1.2vw",
-            fontWeight: "bolder",
-            alignItems: "center",
-            justifyContent: "space-around",
-            writingMode: "vertical-lr",
-            textOrientation: "upright",
-            transform: "translate(0vw, 0.6vw)",
-          }}
-        >
-          <h3 style={{color: "#5484b3"}}>1</h3>
-          <h3 style={{color: "#5484b3"}}>2</h3>
-          <h3 style={{color: "#5484b3"}}>3</h3>
-          <h3 style={{color: "#5484b3"}}>4</h3>
-          <h3 style={{color: "#5484b3"}}>5</h3>
-          <h3 style={{color: "#5484b3"}}>6</h3>
-          <h3 style={{color: "#5484b3"}}>7</h3>
-          <h3 style={{color: "#5484b3"}}>8</h3>
-        </div>
-        <div
-          id="cellContainer"
-          style={{
-            position: "relative",
-            zIndex: 1,
-            justifyContent: "space-around",
-            alignItems: "center",
             display: "flex",
             flexDirection: "row",
+            width: "800px",
+            minWidth: minSize,
+            maxWidth: maxSize,
+            boxSizing: "border-box",
+          }}
+        >
+          <Profile
+            type="opponent"
+            username="OpponentName"
+            size="4vmin"
+          ></Profile>
+          <div
+            style={{
+              display: "flex",
+              flex: "1",
+              boxSizing: "border-box",
+              justifyContent: "right",
+            }}
+          >
+            <GetTime></GetTime>
+          </div>
+        </div>
+        <div
+          key="chessboard_raw"
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "stretch",
+            flexDirection: "row",
             flexWrap: "wrap",
-            flex: 1,
-            border: "0.25vw solid black",
-          }}>
+            border: "0.5vmin solid black",
+            height: "85vmin",
+            width: "85vmin",
+            maxWidth: maxSize,
+            maxHeight: maxSize,
+            minWidth: minSize,
+            minHeight: minSize,
+            aspectRatio: "1 / 1",
+            boxSizing: "border-box",
+          }}
+        >
           {[...Array(CELL_COUNT)].map((e, i) => {
             const col = i % 8;
             const row = Math.floor(i / 8);
 
-            const color_ = (col + row) % 2 === 0 ? "#5484b3" : "#37597a";
+            let letter = "a";
+            switch (col) {
+              case 0:
+                letter = "a";
+                break;
+              case 1:
+                letter = "b";
+                break;
+              case 2:
+                letter = "c";
+                break;
+              case 3:
+                letter = "d";
+                break;
+              case 4:
+                letter = "e";
+                break;
+              case 5:
+                letter = "f";
+                break;
+              case 6:
+                letter = "g";
+                break;
+              case 7:
+                letter = "h";
+                break;
+              default:
+                console.log("Could not get letter");
+                break;
+            }
 
-            return <ChessCell color={color_} row={row} col={col}></ChessCell>;
+            const color_ = (col + row) % 2 === 0 ? "#5484b3" : "#37597a";
+            const key = letter + (col + 1);
+
+            return (
+              <ChessCell
+                key={key}
+                color={color_}
+                row={row}
+                col={col}
+                letter={letter}
+              ></ChessCell>
+            );
           })}
         </div>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            width: "800px",
+            minWidth: minSize,
+            maxWidth: maxSize,
+            boxSizing: "border-box",
+          }}
+        >
+          <Profile type="player" username="PlayerName" size="4vmin"></Profile>
+          <div
+            style={{
+              display: "flex",
+              flex: "1",
+              justifyContent: "right",
+              boxSizing: "border-box",
+            }}
+          >
+            <GetTime></GetTime>
+          </div>
+        </div>
       </div>
-    </>
     </div>
   );
 }
 
-export default ChessTable;
+export default ChessBoard;

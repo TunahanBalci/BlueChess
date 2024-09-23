@@ -1,0 +1,14 @@
+@keyframes blink-animation {
+  to {
+    visibility: hidden;
+  }
+}
+
+.indicator_blink {
+  clip-path: inset(30% 0 30% 0);
+  background: #8c95bf;
+  margin-left: 0.75vw;
+  height: 50%;
+  width: 18px;
+  animation: blink-animation 2s steps(2, start) infinite;
+}

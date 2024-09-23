@@ -1,11 +1,9 @@
-import './App.css';
-import ChessStage from './components/ChessStage';
+import "./App.css";
+import ChessStage from "./components/ChessStage";
+import ChessCell from "./components/ChessCell";
 
 function App() {
-  return (
-    <ChessStage></ChessStage>
-  );
+  return <ChessStage />;
 }
 
 export default App;
-
