@@ -18,15 +18,16 @@ import king_w from "./assets/king_white.png";
 // 5 : king - 1
 
 function ChessPiece(props) {
-  const piece = this;
-  const type = props.type;
-  const row = props.row;
-  const col = props.col;
-  const team = props.team;
+
+
+  super(props);
+  this.type = props.type;
+  this.team = props.team; // black - white
+  this.location = props.location; // array [row, col]
 
   let imgSource;
 
-  switch (type) {
+  switch (type) { // assign front-end image based on piece type
     case "0":
       imgSource = team === "white" ? pawn_w : pawn_b;
       break;
