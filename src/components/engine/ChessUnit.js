@@ -5,4 +5,5 @@ export default function ChessUnit(type, team, location) {
   this.canMove = true;
   this.possibleMoves = [8][8];
   this.protectedPieces = [];
+  this.isProtected = false;
 }

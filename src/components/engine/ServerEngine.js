@@ -2,7 +2,7 @@ import ChessUnit from "./ChessUnit";
 
 let board = [8][8];
 
-export default function ServerEngine() {}
+export default function ServerEngine() { }
 
 export function initBoard() {
   for (let i = 0; i < 8; i++) {
@@ -36,8 +36,10 @@ export function initBoard() {
             break;
           default:
             break;
+
         }
-      } else if (i === 1) {
+      }
+      else if (i === 1) {
         board[i][j] = new ChessPiece("pawn", "black");
       } else if (i === 6) {
         board[i][j] = new ChessPiece("pawn", "white");
@@ -103,7 +105,7 @@ export function previewMove(piece) {
   // FRONTEND
   // called when clicked on a piece to view possible moves
 }
-export function moveUnit(unit, to) {
+export function moveUnit(unit, to) { 
   // called when a piece is moved
 
   let from = unit.location;
@@ -115,7 +117,7 @@ export function moveUnit(unit, to) {
     unit.location = to;
     board[from[0]][from[1]] = null;
   }
-
+  
   switch (unit.type) {
   }
 }
@@ -510,14 +512,154 @@ export function checkProtected(unit) {
       }
       break;
     case "knight":
+
+      checkLoc(unit, [unit.location[0] + 2, unit.location[1] + 1]); // 2 down 1 right
+      checkLoc(unit, [unit.location[0] + 2, unit.location[1] - 1]); // 2 down 1 left
+      checkLoc(unit, [unit.location[0] - 2, unit.location[1] + 1]); // 2 up 1 right
+      checkLoc(unit, [unit.location[0] - 2, unit.location[1] - 1]); // 2 up 1 left
+      checkLoc(unit, [unit.location[0] + 1, unit.location[1] + 2]); // 1 down 2 right
+      checkLoc(unit, [unit.location[0] + 1, unit.location[1] - 2]); // 1 down 2 left
+      checkLoc(unit, [unit.location[0] - 1, unit.location[1] + 2]); // 1 up 2 right
+      checkLoc(unit, [unit.location[0] - 1, unit.location[1] - 2]); // 1 up 2 left
+
       break;
     case "bishop":
+
+      for (let i = 1; i < 8 && i >= 0; i++) {
+
+        if (board[unit.location[0] + i][unit.location[1] + i].exists) { // towards down right
+          if (board[unit.location[0] + i][unit.location[1] + i].team === unit.team) {
+
+            unit.protectedPieces.push(board[unit.location[0] + i][unit.location[1] + i]);
+            break;
+          }
+        }
+        if (board[unit.location[0] - i][unit.location[1] - i].exists) { // towards up left
+          if (board[unit.location[0] - i][unit.location[1] - i].team === unit.team) {
+
+            unit.protectedPieces.push(board[unit.location[0] - i][unit.location[1] - i]);
+            break;
+          }
+        }
+        if (board[unit.location[0] + i][unit.location[1] - i].exists) { // towards down left
+          if (board[unit.location[0] + i][unit.location[1] - i].team === unit.team) {
+
+            unit.protectedPieces.push(board[unit.location[0] + i][unit.location[1] - i]);
+            break;
+          }
+        }
+        if (board[unit.location[0] - i][unit.location[1] + i].exists) { // towards up right
+          if (board[unit.location[0] - i][unit.location[1] + i].team === unit.team) {
+
+            unit.protectedPieces.push(board[unit.location[0] - i][unit.location[1] + i]);
+            break;
+          }
+        }
+      }
       break;
     case "queen":
+
+      for (let i = unit.location[0] + 1; i < 8; i++) { // towards down
+
+        if (board[i][unit.location[1]].exists) {
+          if (board[i][unit.location[1]].team === unit.team) {
+
+            unit.protectedPieces.push(board[i][unit.location[1]]);
+            break;
+          }
+        }
+      }
+
+      for (let i = unit.location[0] - 1; i >= 0; i--) { // towards up
+
+        if (board[i][unit.location[1]].exists) {
+          if (board[i][unit.location[1]].team === unit.team) {
+
+            unit.protectedPieces.push(board[i][unit.location[1]]);
+            break;
+          }
+        }
+
+      }
+
+      for (let i = unit.location[1] + 1; i < 8; i++) { // towards right
+
+        if (board[unit.location[0]][i].exists) {
+          if (board[unit.location[0]][i].team === unit.team) {
+
+            unit.protectedPieces.push(board[unit.location[0]][i]);
+            break;
+          }
+        }
+      }
+      for (let i = unit.location[1] - 1; i >= 0; i--) { // towards left
+        if (board[unit.location[0]][i].exists) {
+          if (board[unit.location[0]][i].team === unit.team) {
+
+            unit.protectedPieces.push(board[unit.location[0]][i]);
+            break;
+          }
+        }
+      }
+
+      for (let i = 1; i < 8 && i >= 0; i++) {
+
+        if (board[unit.location[0] + i][unit.location[1] + i].exists) { // towards down right
+          if (board[unit.location[0] + i][unit.location[1] + i].team === unit.team) {
+
+            unit.protectedPieces.push(board[unit.location[0] + i][unit.location[1] + i]);
+            break;
+          }
+        }
+        if (board[unit.location[0] - i][unit.location[1] - i].exists) { // towards up left
+          if (board[unit.location[0] - i][unit.location[1] - i].team === unit.team) {
+
+            unit.protectedPieces.push(board[unit.location[0] - i][unit.location[1] - i]);
+            break;
+          }
+        }
+        if (board[unit.location[0] + i][unit.location[1] - i].exists) { // towards down left
+          if (board[unit.location[0] + i][unit.location[1] - i].team === unit.team) {
+
+            unit.protectedPieces.push(board[unit.location[0] + i][unit.location[1] - i]);
+            break;
+          }
+        }
+        if (board[unit.location[0] - i][unit.location[1] + i].exists) { // towards up right
+          if (board[unit.location[0] - i][unit.location[1] + i].team === unit.team) {
+
+            unit.protectedPieces.push(board[unit.location[0] - i][unit.location[1] + i]);
+            break;
+          }
+        }
+      }
+
       break;
+
     case "king":
+
+      checkLoc(unit, [unit.location[0] + 1, unit.location[1]]); // down
+      checkLoc(unit, [unit.location[0] - 1, unit.location[1]]); // up
+      checkLoc(unit, [unit.location[0], unit.location[1] + 1]); // right
+      checkLoc(unit, [unit.location[0], unit.location[1] - 1]); // left
+      checkLoc(unit, [unit.location[0] + 1, unit.location[1] + 1]); // down right
+      checkLoc(unit, [unit.location[0] + 1, unit.location[1] - 1]); // down left
+      checkLoc(unit, [unit.location[0] - 1, unit.location[1] + 1]); // up right
+      checkLoc(unit, [unit.location[0] - 1, unit.location[1] - 1]); // up left
+
       break;
     default:
       break;
   }
+}
+
+
+function checkLoc(unit, loc) {
+
+  if (board[loc[0]][loc[1]].exists) {
+    if (board[loc[0][loc[1]]].team === unit.team) {
+      unit.protectedPieces.push(board[loc[0]][loc[1]]);
+    }
+  }
+
 }
