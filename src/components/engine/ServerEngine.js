@@ -11,28 +11,28 @@ export function initBoard() {
       if (i === 0) {
         switch (j) {
           case 0:
-            board[i][j] = new ChessPiece("rook", "black");
+            board[i][j] = new ChessUnit("rook", "black");
             break;
           case 1:
-            board[i][j] = new ChessPiece("knight", "black");
+            board[i][j] = new ChessUnit("knight", "black");
             break;
           case 2:
-            board[i][j] = new ChessPiece("bishop", "black");
+            board[i][j] = new ChessUnit("bishop", "black");
             break;
           case 3:
-            board[i][j] = new ChessPiece("queen", "black");
+            board[i][j] = new ChessUnit("queen", "black");
             break;
           case 4:
-            board[i][j] = new ChessPiece("king", "black");
+            board[i][j] = new ChessUnit("king", "black");
             break;
           case 5:
-            board[i][j] = new ChessPiece("bishop", "black");
+            board[i][j] = new ChessUnit("bishop", "black");
             break;
           case 6:
-            board[i][j] = new ChessPiece("knight", "black");
+            board[i][j] = new ChessUnit("knight", "black");
             break;
           case 7:
-            board[i][j] = new ChessPiece("rook", "black");
+            board[i][j] = new ChessUnit("rook", "black");
             break;
           default:
             break;
@@ -40,55 +40,49 @@ export function initBoard() {
         }
       }
       else if (i === 1) {
-        board[i][j] = new ChessPiece("pawn", "black");
+        board[i][j] = new ChessUnit("pawn", "black");
       } else if (i === 6) {
-        board[i][j] = new ChessPiece("pawn", "white");
+        board[i][j] = new ChessUnit("pawn", "white");
       } else if (i === 7) {
         switch (j) {
           case 0:
             let piece_0 = new ChessUnit("rook", "white", [i, j]);
+            piece_0.location = [i, j];
             board[i][j] = piece_0;
             break;
           case 1:
-            let piece_1 = new ChessUnitq("knight", "white", [i, j]);
-            piece_1.possibleMoves.push([i + 2, j + 1]);
-            piece_1.possibleMoves.push([i + 2, j - 1]);
+            let piece_1 = new ChessUnit("knight", "white", [i, j]);
+            piece_1.location = [i, j];
             board[i][j] = piece_1;
             break;
           case 2:
-            let piece_2 = new ChessPiece("bishop", "white", [i, j]);
+            let piece_2 = new ChessUnit("bishop", "white", [i, j]);
+            piece_2.location = [i, j];
             board[i][j] = piece_2;
             break;
           case 3:
-            let piece_3 = new ChessPiece("queen", "white", [i, j]);
-            piece_3.row = i;
-            piece_3.col = j;
+            let piece_3 = new ChessUnit("queen", "white", [i, j]);
+            piece_3.location = [i, j]
             board[i][j] = piece_3;
             break;
           case 4:
-            let piece_4 = new ChessPiece("king", "white", [i, j]);
-            piece_4.row = i;
-            piece_4.col = j;
+            let piece_4 = new ChessUnit("king", "white", [i, j]);
+            piece_4.location = [i, j];
             board[i][j] = piece_4;
             break;
           case 5:
-            let piece_5 = new ChessPiece("bishop", "white", [i, j]);
-            piece_5.row = i;
-            piece_5.col = j;
+            let piece_5 = new ChessUnit("bishop", "white", [i, j]);
+            piece_5.location = [i, j];
             board[i][j] = piece_5;
             break;
           case 6:
-            let piece_6 = new ChessPiece("knight", "white", [i, j]);
-            piece_1.possibleMoves.push([i + 2, j + 1]);
-            piece_1.possibleMoves.push([i + 2, j - 1]);
-            piece_6.row = i;
-            piece_6.col = j;
+            let piece_6 = new ChessUnit("knight", "white", [i, j]);
+            piece_6.location = [i, j];
             board[i][j] = piece_6;
             break;
           case 7:
             let piece_7 = new ChessPiece("rook", "white", [i, j]);
-            piece_7.row = i;
-            piece_7.col = j;
+            piece_7.location = [i, j];
             board[i][j] = piece_7;
             break;
           default:
@@ -102,12 +96,16 @@ export function initBoard() {
 }
 
 export function previewMove(piece) {
+  
   // FRONTEND
   // called when clicked on a piece to view possible moves
 }
 export function moveUnit(unit, to) { 
   // called when a piece is moved
 
+  if(unit.team.isChecked){
+
+  }
   let from = unit.location;
 
   if (board[to[0]][to[1]] !== null) {
