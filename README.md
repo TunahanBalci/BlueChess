@@ -1,7 +1,6 @@
 #
 #   AUTHOR: TUNAHAN BALCI / [github.com/tunahanbalci]
 #
-#   This project's ultimate goal is to provide a simple online chess experience to its users.
 #
 #
 #   HOW TO PLAY?
