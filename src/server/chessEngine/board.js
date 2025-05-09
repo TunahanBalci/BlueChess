@@ -1,50 +1,37 @@
 export class ChessBoard {
-  constructor(sizeX, sizeY, pieces) {
-    this.pieces = pieces; // array
+  constructor(sizeX, sizeY, teams, tiles, pieces) {
+    this.teams = teams;
     this.sizeX = sizeX;
     this.sizeY = sizeY;
-    this.tiles = initTiles(this);
+    this.tiles = tiles;
+    this.pieces = pieces;
   }
-
-  push(piece) {
-    this.pieces.push(piece);
-  }
-
-  getPieceLocation(piece) {
-    if (piece in this.pieces) {
-      this.tiles.forEach((element) => {
-        if (element.piece == piece) {
-          return [element.x, element.y];
-        }
-      });
-    } else {
-      console.error("Could not get piece location in chess board");
-    }
-  }
-
-}
-
-function initTiles(board) {
-  let tiles = [];
-
-  for (let i = 0; i < board.sizeX; i++) {
-    for (let j = 0; j < board.sizeY; j++) {
-      let tile = new Tile(i, j);
-      tiles.push(tile);
-    }
-  }
-  return tiles;
 }
 
 
+function movePiece(piece, x, y) {
 
-class Tile {
-  piece;
-  x;
-  y;
 
-  Tile(x, y) {
-    this.x = x;
-    this.y = y;
-  }
+  // check if piece can move to x y
+
+  if (!canMove(piece, x, y)) return;
+
+  tiles.set(`${piece.x},${piece.y}`, null); // remove piece from old tile
+  tiles.set(`${x},${y}`, piece); // add piece to new tile
+  pieces.set(piece, `${x},${y}`); // update piece position
+  piece.x = x; // update piece x position
+  piece.y = y; // update piece y position
+
+
+
+  // update tiles
+  // update pieces
+  // update piece position
+}
+
+function canMove(piece, x, y){
+
+  // check if piece is blocked
+  // check if piece is preventing check
+  // check if x y is in moving pattern
 }

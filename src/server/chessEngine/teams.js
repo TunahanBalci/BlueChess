@@ -2,7 +2,7 @@ import { Bishop, King, Knight, Pawn, Queen, Rook } from "./types";
 
 export class TEAM_BLACK{
 
-    enemy; // Initialized in game mode
+    enemies; // Initialized in game mode
 
     pieces =  // 2 Rooks, 2 Knights, 2 Bishops, 1 King, 1 Queen, 8 Pawns (can be overriden in game mode)
     [new Rook, new Rook,
@@ -20,7 +20,7 @@ export class TEAM_BLACK{
 
 export class TEAM_WHITE{
 
-    enemy;
+    enemies;
     
     pieces = 
     [new Rook, new Rook,
